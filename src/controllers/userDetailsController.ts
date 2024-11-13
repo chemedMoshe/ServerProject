@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { getAmountMunitionsRouter, getDetailsMissilesRouter } from "../router/userDetailsRouter";
+import { getMunitionsByUserRouter, getDetailsMissilesRouter } from "../router/userDetailsRouter";
 
 const router = Router();
 
-router.get('/user',getAmountMunitionsRouter)
+router.get('/user', getMunitionsByUserRouter)
 
-router.get('/missiles',getDetailsMissilesRouter)
+router.get('/missiles', getDetailsMissilesRouter)
 export default router

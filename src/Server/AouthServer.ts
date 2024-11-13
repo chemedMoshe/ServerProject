@@ -7,7 +7,7 @@ import { OrganizationEnum } from '../Models/enums/organizationEnum';
 import { LocationsEnum } from '../Models/enums/LocationEnum';
 import missiles from '../../Data/organizations.json'
 import missilesDB from '../Models/DBModels/munitionsDB'
-
+import dispatchHistory from '../Models/DBModels/dispatchHistory'
 
 const checkRequest = (user: IUserDTO) => {
     const { Name, Password, Organization, Location } = user
@@ -45,6 +45,10 @@ export const createNewUserServer = async (user: IUserDTO) => {
         const missilesForNewUser = addMissilesByUser(user)
         const newMissiles = new missilesDB({ userId: newUser._id, munitions: missilesForNewUser })
         await newMissiles.save()
+
+        const newDispatchHistory = new dispatchHistory({ userId: newUser._id, dispatches: [] })
+        await newDispatchHistory.save()
+      
         return {
             Name: user.Name,
             Message: 'User created successfully'
