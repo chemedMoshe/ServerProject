@@ -1,4 +1,4 @@
-export enum Organization {
+export enum OrganizationEnum {
     IDF = "IDF",
     Hezbollah = "Hezbollah", 
     Hamas = "Hamas",

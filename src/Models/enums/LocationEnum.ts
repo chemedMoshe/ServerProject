@@ -1,4 +1,4 @@
-export  enum Locations {
+export  enum LocationsEnum {
     north = "north",
     south = "south",
     senter = "senter",
