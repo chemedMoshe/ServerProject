@@ -5,6 +5,7 @@ import userController from "./controllers/Auth";
 const PORT = process.env.PORT || 3000;
 const app = Express();
 connectDB();
+
 app.use(Express.json());
 
 app.use('/api/users',userController)
