@@ -35,6 +35,7 @@ export const loginServer = async (user: LoginDTO) => {
         })
 
         return { Name: userFromDB.Name, token, password: '*******' }
+    
     } catch (error) {
         throw new Error(error as string)
     }
