@@ -1,19 +1,38 @@
 import bcrypt from 'bcrypt'
 import userDB from '../Models/DBModels/userDB'
-import { IUserDTO } from '../Models/DBModels/DTO/IUserDTO'
-import LoginDTO from '../Models/DBModels/DTO/LoginDTO'
+import { IUserDTO } from '../Models/DTO/IUserDTO'
+import LoginDTO from '../Models/DTO/LoginDTO'
 import jwt from "jsonwebtoken";
+import { OrganizationEnum } from '../Models/enums/organizationEnum';
+import { LocationsEnum } from '../Models/enums/LocationEnum';
 
+
+const checkRequest = (user: IUserDTO) => {
+    const { Name, Password, Organization, Location } = user
+    if (!Name || !Password || !Organization) {
+        throw new Error('All fields are required')
+    }
+    if (!Object.values(OrganizationEnum).includes(Organization)) {
+        throw new Error('Organization is invalid')
+    }
+    if (Organization === OrganizationEnum.IDF) {
+        if (Location && !Object.values(LocationsEnum).includes(Location)) {
+            throw new Error('Location is invalid')
+        }
+    }
+
+
+}
 export const createNewUserServer = async (user: IUserDTO) => {
     try {
+        checkRequest(user)
         const encPass = await bcrypt.hash(user.Password, 10)
         user.Password = encPass
         const newUser = new userDB(user)
         await newUser.save()
-        return { Name: newUser.Name, Message: 'User created successfully' }
+        return { Name: user.Name, Message: 'User created successfully' }
     } catch (error) {
-        console.log(error);
-        throw new Error(error as string)
+        throw error as Error
     }
 }
 
@@ -35,7 +54,7 @@ export const loginServer = async (user: LoginDTO) => {
         })
 
         return { Name: userFromDB.Name, token, password: '*******' }
-    
+
     } catch (error) {
         throw new Error(error as string)
     }
