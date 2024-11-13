@@ -3,8 +3,8 @@ import Express from "express";
 import { connectDB } from "./Config/connectionDB";
 import userController from "./controllers/Auth";
 import detailsController from "./controllers/userDetailsController";
-import { updateMissiles } from "./Server/dispatchServer";
-import { missilesEunm } from "./Models/enums/MissilesEnum";
+import dispatchController from './controllers/dispatchController'
+
 const PORT = process.env.PORT || 3000;
 const app = Express();
 
@@ -16,7 +16,7 @@ app.use('/api/users', userController)
 
 app.use('/api/details', detailsController)
 
-//app.use('/api/dispatch')
+app.use('/api/dispatch',dispatchController)
 
 app.listen(PORT, () => {
 

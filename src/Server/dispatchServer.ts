@@ -14,7 +14,7 @@ const updateDispatchInDB = async ({ id, missiles }: IUpdateMissiles) => {
     try {
         const dispatchs = await dispatchHistoryDB.findOne({ userId: id })
         dispatchs!.dispatches.push({ name: missiles, staus: StatusDispatchEnum.Hit })
-
+       
         await dispatchs!.save()
 
     } catch (error) {
@@ -41,3 +41,6 @@ export const updateMissiles = async ({ id, missiles }: IUpdateMissiles) => {
         throw error
     };
 }
+
+//dispatch from user
+//dispatchs.dispatches[0]._id == id
