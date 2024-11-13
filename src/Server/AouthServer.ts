@@ -5,8 +5,8 @@ import LoginDTO from '../Models/DTO/LoginDTO'
 import jwt from "jsonwebtoken";
 import { OrganizationEnum } from '../Models/enums/organizationEnum';
 import { LocationsEnum } from '../Models/enums/LocationEnum';
-
-
+import missiles from '../../Data/organizations.json'
+import missilesDB from '../Models/DBModels/munitionsDB'
 const checkRequest = (user: IUserDTO) => {
     const { Name, Password, Organization, Location } = user
     if (!Name || !Password || !Organization) {
@@ -23,15 +23,33 @@ const checkRequest = (user: IUserDTO) => {
 
 
 }
+
+
+const addMissilesByUser = (user: IUserDTO) => {
+    return user.Organization !== OrganizationEnum.IDF ?
+        missiles.find(x => x.name == user.Organization)?.resources :
+        missiles.find(x => x.name === user.Location)?.resources
+}
+
 export const createNewUserServer = async (user: IUserDTO) => {
     try {
         checkRequest(user)
         const encPass = await bcrypt.hash(user.Password, 10)
         user.Password = encPass
+
         const newUser = new userDB(user)
         await newUser.save()
-        return { Name: user.Name, Message: 'User created successfully' }
+
+        const missilesForNewUser = addMissilesByUser(user)
+        const newMissiles = new missilesDB({ userId: newUser._id, munitions: missilesForNewUser })
+        newMissiles.save()
+        return {
+            Name: user.Name,
+            munitions: newMissiles,
+            Message: 'User created successfully'
+        }
     } catch (error) {
+
         throw error as Error
     }
 }
