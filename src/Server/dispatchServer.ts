@@ -4,7 +4,7 @@ import { missilesEunm } from "../Models/enums/MissilesEnum";
 import dispatchHistoryDB from "../Models/DBModels/dispatchHistory";
 import { StatusDispatchEnum } from "../Models/enums/StatusDispatchEnum";
 
-interface IUpdateMissiles {
+export interface IUpdateMissiles {
     id: mongoose.Types.ObjectId,
     missiles: missilesEunm
 }
