@@ -12,7 +12,6 @@ export const loginRouter = async (req: Request, res: Response) => {
 }
 
 
-
 export const registerRouter = async (req: Request<IUserDTO>, res: Response) => {
   try {
 
