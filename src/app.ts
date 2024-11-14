@@ -16,7 +16,9 @@ export const io = new Server(httpServer, { cors: { origin: "*",methods:"*" } })
 io.on('connection',startConnection)
 
 connectDB();
+
 app.use(cors())
+
 app.use(express.json());
 
 app.use('/api/users', userController)

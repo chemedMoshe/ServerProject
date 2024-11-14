@@ -6,4 +6,5 @@ const router = Router();
 router.post('/users', getMunitionsByUserRouter)
 
 router.get('/missiles', getDetailsMissilesRouter)
+
 export default router

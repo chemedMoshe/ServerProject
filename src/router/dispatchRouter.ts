@@ -10,6 +10,7 @@ export const getDispatchesByIdRouter = async (req: Request<IGetDispatch>, res: R
     }
 }
 
+
 export const dispatchRouter = async (req: Request<IUpdateMissiles>, res: Response) => {
     try {
         console.log(req.body);
@@ -21,6 +22,7 @@ export const dispatchRouter = async (req: Request<IUpdateMissiles>, res: Respons
     }
 }
 
+
 export const interceptionRouter = async (req: Request, res: Response) => {
     try {
         const dispatch = await interception(req.body)
@@ -29,6 +31,7 @@ export const interceptionRouter = async (req: Request, res: Response) => {
         res.status(400).json((err as Error).message)
     }
 }
+
 
 export const getDispatchesByLocationRouter = async (req: Request, res: Response) => {
     try {
