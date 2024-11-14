@@ -1,11 +1,9 @@
-import {  OrganizationEnum } from "../enums/organizationEnum";
 import { LocationsEnum } from "../enums/LocationEnum";
-import mongoose from "mongoose";
+import { OrganizationEnum } from "../enums/organizationEnum";
 
-export default interface IUser extends mongoose.Document {
+export interface IUserDTO {
     Name: string;
     Password: string;
     Organization: OrganizationEnum;
     Location?: LocationsEnum;
 }
-

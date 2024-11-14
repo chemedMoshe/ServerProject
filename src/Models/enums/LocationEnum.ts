@@ -1,6 +1,6 @@
 export  enum LocationsEnum {
-    north = "north",
-    south = "south",
-    senter = "senter",
-    JudeaAndSamaria = "JudeaAndSamaria"
+    north = "IDF - North",
+    south = "IDF - South",
+    center = "IDF - Center",
+    JudeaAndSamaria = "IDF - West Bank"
 }
