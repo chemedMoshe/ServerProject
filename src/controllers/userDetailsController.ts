@@ -3,7 +3,7 @@ import { getMunitionsByUserRouter, getDetailsMissilesRouter } from "../router/us
 
 const router = Router();
 
-router.get('/user', getMunitionsByUserRouter)
+router.post('/users', getMunitionsByUserRouter)
 
 router.get('/missiles', getDetailsMissilesRouter)
 export default router

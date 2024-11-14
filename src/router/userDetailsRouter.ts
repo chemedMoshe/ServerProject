@@ -5,6 +5,8 @@ import { getMunitionsByUser, getDetailsOnMissiles } from "../Server/UserDetailsS
 export const getMunitionsByUserRouter = async (req: Request, res: Response) => {
     try {
         const details = await getMunitionsByUser(req.body)
+        
+        
         res.status(200).json({ data: details, message: "User details" })
     }
     catch (err) {

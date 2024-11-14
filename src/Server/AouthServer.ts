@@ -46,11 +46,10 @@ export const createNewUserServer = async (user: IUserDTO) => {
         const newMissiles = new missilesDB({ userId: newUser._id, munitions: missilesForNewUser })
         await newMissiles.save()
 
-        const newDispatchHistory = new dispatchHistory({ userId: newUser._id, dispatches: [] })
-        await newDispatchHistory.save()
-      
+       
         return {
             Name: user.Name,
+            id: newUser._id,
             Message: 'User created successfully'
         }
     } catch (error) {
@@ -62,9 +61,11 @@ export const createNewUserServer = async (user: IUserDTO) => {
 
 export const loginServer = async (user: LoginDTO) => {
     try {
-        const userFromDB = await userDB.findOne({ Name: user.Name }).lean()
+        
+        const userFromDB = await userDB.findOne({ Name: user.username }).lean()
+        
         if (!userFromDB) throw new Error('User not found')
-        const isMatch = await bcrypt.compare(user.Password, userFromDB.Password)
+        const isMatch = await bcrypt.compare(user.password, userFromDB.Password)
         if (!isMatch) throw new Error('Password is incorrect')
         const token = await jwt.sign({
             user_id: userFromDB._id,
@@ -76,7 +77,7 @@ export const loginServer = async (user: LoginDTO) => {
             expiresIn: '10m'
         })
 
-        return { Name: userFromDB.Name, token, password: '*******' }
+        return {Id: userFromDB._id, Name: userFromDB.Name, token, Organization: userFromDB.Organization}
 
     } catch (error) {
         throw new Error(error as string)

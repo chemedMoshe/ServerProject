@@ -5,7 +5,7 @@ import { Request, Response } from "express"
 export const loginRouter = async (req: Request, res: Response) => {
   try {
     const dataFromServer = await loginServer(req.body)
-    res.status(200).json(dataFromServer).header('Authorization', dataFromServer.token)
+    res.header('Authorization', dataFromServer.token).status(200).json(dataFromServer)
   } catch (err) {
     res.status(400).json((err as Error).message)
   }
