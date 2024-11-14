@@ -77,7 +77,7 @@ export const loginServer = async (user: LoginDTO) => {
             expiresIn: '10m'
         })
 
-        return {Id: userFromDB._id, Name: userFromDB.Name, token, Organization: userFromDB.Organization}
+        return {Id: userFromDB._id, Name: userFromDB.Name, token, Organization: userFromDB.Organization, Location: userFromDB.Location|| null }
 
     } catch (error) {
         throw new Error(error as string)
