@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/src/app.js",
   "scripts": {
-    "dev": "nodemon ./dist/app.js"
+    "dev": "nodemon ./dist/src/app.js"
   },
   "author": "",
   "license": "ISC",

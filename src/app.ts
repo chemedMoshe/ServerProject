@@ -5,9 +5,12 @@ import userController from "./controllers/Auth";
 import detailsController from "./controllers/userDetailsController";
 import dispatchController from './controllers/dispatchController'
 import cors from 'cors'
+import verify from "./Middleware/verify";
 import http from 'http'
 import { Server } from "socket.io";
 import { startConnection } from "./socket/io";
+import { getTimeMissiesByName } from "./utils/missiles";
+import { missilesEunm } from "./Models/enums/MissilesEnum";
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -23,9 +26,9 @@ app.use(express.json());
 
 app.use('/api/users', userController)
 
-app.use('/api/details', detailsController)
+app.use('/api/details', verify,detailsController)
 
-app.use('/api/dispatch',dispatchController)
+app.use('/api/dispatch',verify,dispatchController)
 
 
 

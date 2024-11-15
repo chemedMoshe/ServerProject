@@ -3,12 +3,12 @@ import { dispatchRouter, getDispatchesByIdRouter, getDispatchesByLocationRouter,
 import verify from "../Middleware/verify";
 const router = Router()
 
-router.put('/',verify as any,getDispatchesByIdRouter)
+router.put('/',getDispatchesByIdRouter)
 
 router.put('/location',getDispatchesByLocationRouter)
 
-router.post('/',verify as any,dispatchRouter)
+router.post('/',dispatchRouter)
 
-router.post('/interception',verify as any,interceptionRouter)
+router.post('/interception',interceptionRouter)
 
 export default router
